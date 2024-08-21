@@ -203,14 +203,14 @@ where
     }
 
     /// Initializes the vector with the specified mode.
-    /// 
+    ///
     /// # Arguments
     /// * `mode` - The mode to initialize the vector with.
-    /// 
+    ///
     /// # Examples
     /// ```
     /// use eigen_rs::sparse_core::ambi_vector::{AmbiVector, Mode};
-    /// 
+    ///
     /// let mut vec: AmbiVector<f64, u32> = AmbiVector::new(100);
     /// vec.init_mode(Mode::Sparse);
     /// ```
@@ -280,6 +280,10 @@ where
 
     pub fn restart(&mut self) {
         self.ll_current = self.ll_start;
+    }
+
+    pub fn iter(&self, epsilon: Scalar) -> AmbiVectorIterator<Scalar, StorageIndex> {
+        AmbiVectorIterator::new(self, epsilon)
     }
 
     /// Returns a mutable reference to the element at the specified index.
@@ -377,14 +381,14 @@ where
         }
         self.buffer = new_buffer;
     }
-    
+
     /// Returns an iterator over the non-zero elements of the vector.
-    /// 
+    ///
     /// # Examples
-    /// 
+    ///
     /// ```
     /// use eigen_rs::sparse_core::ambi_vector::{AmbiVector, Mode};
-    /// 
+    ///
     /// let mut vec: AmbiVector<f64, u32> = AmbiVector::new(5);
     /// vec.init_mode(Mode::Sparse);
     /// *vec.coeff_ref(2) = 3.0;
