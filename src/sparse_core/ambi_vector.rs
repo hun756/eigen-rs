@@ -1,9 +1,7 @@
 //! # AmbiVector
 //!
-//! `AmbiVector` is a versatile vector implementation that can dynamically switch between
-//! dense and sparse storage modes based on the vector's content density. This makes it
-//! particularly useful for scenarios where the sparsity of the vector may change over time
-//! or is not known in advance.
+//! A flexible vector that automatically switches between dense and sparse storage.
+//! Perfect when sparsity changes or is unknown.
 //!
 //! ## Features
 //!
@@ -35,19 +33,15 @@
 //! }
 //! ```
 //!
-//! ## Choosing Between Dense and Sparse Modes
+//! ## Choosing Storage Mode
 //!
-//! - Use `init(estimated_density)` to automatically choose the mode based on the estimated density.
-//! - Use `init_mode(Mode::Dense)` or `init_mode(Mode::Sparse)` to explicitly set the mode.
+//! - Call `init(estimated_density)` to auto-select based on non-zero density.
+//! - Or choose explicitly with `init_mode(Mode::Dense)` or `init_mode(Mode::Sparse)`.
 //!
-//! Dense mode is generally more efficient when more than 10% of the elements are non-zero.
-//! Sparse mode is more memory-efficient for vectors with few non-zero elements.
+//! Dense mode is fast (O(1) access) but uses more memory, ideal when >10% are non-zero.
+//! Sparse mode is memory efficient with O(log n) access for mostly zeros.
 //!
-//! ## Performance Considerations
-//!
-//! - Dense mode provides O(1) access time but uses memory for all elements.
-//! - Sparse mode provides O(log n) access time (where n is the number of non-zero elements) but only stores non-zero elements.
-//! - The `resize()` method may trigger reallocation, which can be costly for large vectors.
+//! Note: `resize()` might trigger costly reallocations on large vectors.
 //!
 //! ## Examples
 //!
